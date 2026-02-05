@@ -57,7 +57,8 @@ Heavily expanded firmware with extensive features and customization. Includes al
 - [Remote Screen](remote_screen.md) - View and control printer screen remotely via web browser
 - [Monitoring](monitoring.md) - Integration with Prometheus, Home Assistant, DataDog, and other monitoring systems
 - [VPN Remote Access](vpn.md) - Secure remote access via Tailscale (Experimental)
-- [Fluidd or Mainsail](firmware_config.md#web) (selectable) with timelapse support
+- [Print Photo Capture](print_photo.md) - Automatic print photos with touchscreen thumbnails and scriptable output
+- [Fluidd or Mainsail](firmware_config.md#web) (selectable) with timelapse support (enabled by default)
 - Moonraker Adaptive Mesh Support - Object processing for adaptive mesh features
 - Moonraker Apprise Notifications - Send print notifications to Discord, Telegram, Slack, and 90+ services
 - [Timelapse Recovery Tool](https://github.com/horzadome/snapmaker-u1-timelapse-recovery) - Recover unplayable timelapse videos
