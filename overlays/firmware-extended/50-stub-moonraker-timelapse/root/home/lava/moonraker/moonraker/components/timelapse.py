@@ -10,6 +10,10 @@ class Timelapse:
         self.confighelper = confighelper
         self.server = confighelper.get_server()
 
+        # Default timelapse to ON so every print records a timelapse
+        # without requiring manual enable via touchscreen each time.
+        self.enabled = True
+
         # setup eventhandlers and endpoints
         file_manager = self.server.lookup_component("file_manager")
         camera_path = file_manager.datapath.joinpath("camera")
@@ -31,9 +35,11 @@ class Timelapse:
         )
 
     async def _handle_settings(self, web_request: WebRequest) -> Dict[str, Any]:
-        """Return stub timelapse settings."""
+        """Handle timelapse settings - defaults to enabled."""
+        if web_request.get_method() == "POST":
+            self.enabled = web_request.get_boolean("enabled", self.enabled)
         return {
-            "enabled": False
+            "enabled": self.enabled
         }
 
     async def _handle_lastframeinfo(self, web_request: WebRequest) -> Dict[str, Any]:
