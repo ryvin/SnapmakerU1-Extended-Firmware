@@ -158,4 +158,24 @@ After any configuration changes, reboot the printer for changes to take effect.
 
 ## Timelapse Support
 
-Fluidd timelapse plugin is included (no settings support).
+Fluidd timelapse plugin is included. Timelapse recording is enabled by default for every print -- no manual toggle needed.
+
+To check or change the timelapse setting via the Moonraker API:
+
+```bash
+# Check current setting
+curl http://localhost:7125/machine/timelapse/settings
+
+# Disable for the current session
+curl -X POST http://localhost:7125/machine/timelapse/settings \
+    -H "Content-Type: application/json" \
+    -d '{"enabled": false}'
+```
+
+The setting resets to `enabled: true` on each Moonraker restart. To permanently disable timelapse, set `internal: none` in the `[camera]` section of `extended2.cfg`.
+
+## Print Photo Capture
+
+A photo of each finished print is automatically captured and saved for use in scripted workflows (e.g. automated listings). The photo also replaces the gcode file's touchscreen thumbnail.
+
+See [Print Photo Capture](print_photo.md) for full details, output paths, and scripting examples.

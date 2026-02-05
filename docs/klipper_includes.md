@@ -33,6 +33,18 @@ gcode:
 
 For camera configuration examples, see [Camera Support](camera_support.md#moonraker-camera-configuration).
 
+## Firmware-Provided Configs
+
+The extended firmware ships several config files in `extended/klipper/` and `extended/moonraker/`. These are installed automatically and should not be deleted:
+
+| File | Purpose |
+|------|---------|
+| `extended/klipper/00_keep.cfg` | Placeholder (do not remove) |
+| `extended/klipper/10_print_photo.cfg` | Print photo capture and `PRINT_END` override (see [Print Photo Capture](print_photo.md)) |
+| `extended/klipper/mainsail_pause_resume.cfg` | Pause/Resume macro wrappers |
+
+You can add your own `.cfg` files alongside these. They are loaded in alphabetical order, so use numeric prefixes to control ordering if needed.
+
 ## Important Notes
 
 - All `.cfg` files in `extended/klipper/` and `extended/moonraker/` are automatically included
