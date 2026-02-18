@@ -72,7 +72,24 @@ SM_PRINT_START_LINE_EXTRUDER_3 TARGET_TEMP=[nozzle_temperature_initial_layer]
 
 ## Machine End G-code
 
-The default end G-code works fine. If you have the print photo capture feature enabled, `PRINT_END` will automatically capture a photo before parking.
+### With Print Photo Capture (Recommended)
+
+Capture a photo of your finished print before the bed drops. The photo replaces the gcode thumbnail so the touchscreen shows the actual result.
+
+```gcode
+; Move extruder out of camera view
+G1 X5 Y5 F6000
+
+; Capture photo while bed is still at print height
+CAPTURE_PRINT_PHOTO
+
+; Standard end routine (raises Z, turns off heaters)
+PRINT_END
+```
+
+Photos are saved to `/userdata/print_photos/` with timestamps and metadata. See [Print Photo Capture](print_photo.md) for details.
+
+### Without Photo Capture
 
 ```gcode
 PRINT_END
@@ -127,6 +144,15 @@ Should return `true`. If not, check `extended/moonraker/04_adaptive_mesh.cfg` ex
 
 ### Purge line in wrong position
 The purge macro uses `MOVE_TO_XY_IDLE_POSITION_EXTRUDER` which is a Snapmaker-specific macro. If you've modified idle positions, the purge line position may change.
+
+### "Unknown command: CAPTURE_PRINT_PHOTO"
+The print photo capture feature requires the `gcode_shell_command` extension. Verify:
+1. `/home/lava/klipper/klippy/extras/gcode_shell_command.py` exists
+2. `/home/lava/printer_data/config/extended/klipper/10_print_photo.cfg` exists
+3. Restart Klipper with `/etc/init.d/S60klipper restart` (not just firmware restart)
+
+### Photo capture says "No print filename available"
+This is normal when testing outside of a print job. The macro only captures photos during an active print.
 
 ## Where to Configure in OrcaSlicer
 
