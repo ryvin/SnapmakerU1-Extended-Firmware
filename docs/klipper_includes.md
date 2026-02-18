@@ -47,48 +47,21 @@ The extended firmware ships several config files in `extended/klipper/` and `ext
 
 You can add your own `.cfg` files alongside these. They are loaded in alphabetical order, so use numeric prefixes to control ordering if needed.
 
-## OrcaSlicer Start G-code Examples
+## OrcaSlicer Configuration
 
-### Adaptive Bed Mesh
+For complete OrcaSlicer setup instructions including start G-code templates for single and multi-extruder configurations, see **[OrcaSlicer Setup](orcaslicer_setup.md)**.
 
-The extended firmware enables Moonraker's object processing (`04_adaptive_mesh.cfg`), which allows adaptive bed meshing. Add this to your OrcaSlicer **Machine Start G-code** after homing:
+### Quick Reference
 
+**Adaptive Bed Mesh** - probes only the print area:
 ```gcode
-; Adaptive bed mesh - only probes the area being printed
 BED_MESH_CALIBRATE ADAPTIVE=1 ADAPTIVE_MARGIN=5
 ```
 
-### Back Purge Line
-
-The `30_back_purge_macro.cfg` provides macros to draw a purge line at the back of the bed, keeping it away from your print. Add to your **Machine Start G-code**:
-
+**Back Purge Line** - purge at rear of bed:
 ```gcode
-; Reset purge state (required at start of each print)
-RESET_PURGE_LINE_STATE
-
-; Purge lines for each extruder used (add only the ones you need)
-SM_PRINT_START_LINE_EXTRUDER_0 TARGET_TEMP=[nozzle_temperature_initial_layer]
-SM_PRINT_START_LINE_EXTRUDER_1 TARGET_TEMP=[nozzle_temperature_initial_layer]
-SM_PRINT_START_LINE_EXTRUDER_2 TARGET_TEMP=[nozzle_temperature_initial_layer]
-SM_PRINT_START_LINE_EXTRUDER_3 TARGET_TEMP=[nozzle_temperature_initial_layer]
-```
-
-### Combined Example
-
-A complete start gcode combining both features:
-
-```gcode
-; Home and heat bed
-G28
-M190 S[bed_temperature_initial_layer_single]
-
-; Adaptive bed mesh
-BED_MESH_CALIBRATE ADAPTIVE=1 ADAPTIVE_MARGIN=5
-
-; Reset and draw purge lines
 RESET_PURGE_LINE_STATE
 SM_PRINT_START_LINE_EXTRUDER_0 TARGET_TEMP=[nozzle_temperature_initial_layer]
-; Add more SM_PRINT_START_LINE_EXTRUDER_N as needed
 ```
 
 ## Important Notes
